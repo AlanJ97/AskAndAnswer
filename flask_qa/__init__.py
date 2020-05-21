@@ -19,7 +19,3 @@ def create_app(config_file = 'settings.py'):
     app.register_blueprint(auth)
     app.cli.add_command(create_tables)
     return app
-@auth.route('/logout')
-def logout():
-    # logout_user()
-    return redirect(url_for('auth.login'))

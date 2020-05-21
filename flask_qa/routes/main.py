@@ -69,6 +69,8 @@ def question(question_id):
 @main.route('/unanswered')
 @login_required
 def unanswered():
+    if not current_user.expert:
+        return redirect(url_for('main.index'))
     unanswered_questions = Question.query.filter_by(
         expert_id = current_user.id)\
             .filter(Question.answer == None)\
@@ -82,6 +84,8 @@ def unanswered():
 @main.route('/users')
 @login_required
 def users():
+    if not current_user.admin:
+        return redirect(url_for('main.index'))
     users = User.query.filter_by(admin = False).all()
     context = {
         'users' : users
